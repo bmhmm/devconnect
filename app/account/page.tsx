@@ -7,5 +7,10 @@ export default async function Account() {
    
   const { data: claimsData } = await supabase.auth.getClaims()
 
-  return <ProfileForm claims={claimsData?.claims ?? null} />
+  return(
+    <> 
+   <ProfileForm claims={claimsData?.claims ?? null} />
+
+ </>
+  )
 }

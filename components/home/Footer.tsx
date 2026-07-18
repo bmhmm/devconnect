@@ -38,18 +38,6 @@ export default function Footer() {
               >
                 <FaGithub className="h-5 w-5 text-slate-700 transition duration-300 group-hover:text-white" />
               </Link>
-              <Link 
-                href="#" 
-                className="group flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/5 transition duration-300 hover:bg-blue-600"
-              >
-                <FaTwitter className="h-5 w-5 text-slate-700 transition duration-300 group-hover:text-white" />
-              </Link>
-              <Link 
-                href="#" 
-                className="group flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900/5 transition duration-300 hover:bg-blue-600"
-              >
-                <FaLinkedin className="h-5 w-5 text-slate-700 transition duration-300 group-hover:text-white" />
-              </Link>
             </div>
           </div>
 

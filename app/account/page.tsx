@@ -1,10 +1,11 @@
-import AccountForm from './account-form'
 import { createClient } from '@/lib/supabase/server'
+import ProfileForm from '@/components/profile/ProfileForm'
+
 
 export default async function Account() {
   const supabase = await createClient()
-
+   
   const { data: claimsData } = await supabase.auth.getClaims()
 
-  return <AccountForm claims={claimsData?.claims ?? null} />
+  return <ProfileForm claims={claimsData?.claims ?? null} />
 }

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import ProjectForm, { ProjectFormValues } from './ProjectForm'
 import ProjectGrid from './ProjectGrid'
+import DeleteProjectDialog from './DeleteProjectDialog'
 
 type Project = {
   id: string
@@ -26,6 +27,9 @@ export default function ProjectManager({ userId }: Props) {
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
 const [saving, setSaving] = useState(false)
+const [projectToDelete, setProjectToDelete] = useState<Project | null>(null)
+const [deleting, setDeleting] = useState(false)
+const [editingProject, setEditingProject] = useState<Project | null>(null)
 
   const loadProjects = useCallback(async () => {
     setLoading(true)
@@ -73,6 +77,66 @@ const { error } = await supabase.from('projects').insert({
     setSaving(false)
   }
 }
+async function updateProject(values: ProjectFormValues) {
+  if (!editingProject) return
+
+  try {
+    setSaving(true)
+
+    const { error } = await supabase
+      .from('projects')
+      .update({
+        title: values.title,
+        description: values.description,
+        github_url: values.github_url,
+        live_url: values.live_url,
+        image_url: values.image_url,
+      })
+      .eq('id', editingProject.id)
+
+    if (error) throw error
+
+    setEditingProject(null)
+    setShowForm(false)
+
+    await loadProjects()
+  } catch (error) {
+    console.error('Error updating project:', error)
+  } finally {
+    setSaving(false)
+  }
+}
+
+function handleEdit(project: Project) {
+  setEditingProject(project)
+  setShowForm(true)
+}
+
+function handleDelete(project: Project) {
+  setProjectToDelete(project)
+}
+async function confirmDelete() {
+  if (!projectToDelete) return
+
+  try {
+    setDeleting(true)
+
+    const { error } = await supabase
+      .from('projects')
+      .delete()
+      .eq('id', projectToDelete.id)
+
+    if (error) throw error
+
+    setProjectToDelete(null)
+
+    await loadProjects()
+  } catch (error) {
+    console.error(error)
+  } finally {
+    setDeleting(false)
+  }
+}
 
   return (
     <section className="space-y-6">
@@ -109,10 +173,25 @@ const { error } = await supabase.from('projects').insert({
       </div>
         {showForm && (
   <div className="rounded-2xl border border-slate-200 bg-white p-6">
-    <ProjectForm
+  <ProjectForm
   userId={userId}
   loading={saving}
-  onSubmit={createProject}
+  initialValues={
+    editingProject
+      ? {
+          title: editingProject.title,
+          description: editingProject.description ?? '',
+          github_url: editingProject.github_url ?? '',
+          live_url: editingProject.live_url ?? '',
+          image_url: editingProject.image_url,
+        }
+      : undefined
+  }
+  onSubmit={
+    editingProject
+      ? updateProject
+      : createProject
+  }
 />
   </div>
 )}
@@ -131,9 +210,19 @@ const { error } = await supabase.from('projects').insert({
           </p>
         </div>
       ) : (
-        <ProjectGrid projects={projects} />
+        <ProjectGrid
+  projects={projects}
+  onEdit={handleEdit}
+  onDelete={handleDelete}
+/>
       )}
-
+     <DeleteProjectDialog
+  open={projectToDelete !== null}
+  projectTitle={projectToDelete?.title}
+  loading={deleting}
+  onCancel={() => setProjectToDelete(null)}
+  onConfirm={confirmDelete}
+/>
     </section>
   )
 }

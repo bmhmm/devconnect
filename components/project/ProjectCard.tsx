@@ -10,13 +10,20 @@ type Project = {
   image_url: string | null
   github_url: string | null
   live_url: string | null
+  created_at: string
 }
 
 type Props = {
   project: Project
+  onEdit: (project: Project) => void
+  onDelete: (project: Project) => void
 }
 
-export default function ProjectCard({ project }: Props) {
+export default function ProjectCard({
+  project,
+  onEdit,
+  onDelete,
+}: Props){
   return (
     <div
       className="
@@ -128,7 +135,45 @@ export default function ProjectCard({ project }: Props) {
           )}
 
         </div>
+       <div className="mt-4 flex gap-3">
 
+  <button
+    type="button"
+    onClick={() => onEdit(project)}
+    className="
+      flex-1
+      rounded-xl
+      border
+      border-slate-200
+      py-2
+      text-sm
+      font-medium
+      transition
+      hover:bg-slate-100
+    "
+  >
+    Edit
+  </button>
+
+  <button
+    type="button"
+    onClick={() => onDelete(project)}
+    className="
+      flex-1
+      rounded-xl
+      bg-red-500
+      py-2
+      text-sm
+      font-medium
+      text-white
+      transition
+      hover:bg-red-600
+    "
+  >
+    Delete
+  </button>
+
+</div>
       </div>
 
     </div>

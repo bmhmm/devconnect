@@ -9,14 +9,19 @@ type Project = {
   image_url: string | null
   github_url: string | null
   live_url: string | null
+  created_at: string
 }
 
 type Props = {
   projects: Project[]
+  onEdit: (project: Project) => void
+  onDelete: (project: Project) => void
 }
 
 export default function ProjectGrid({
   projects,
+  onEdit,
+  onDelete
 }: Props) {
 
   return (
@@ -30,9 +35,11 @@ export default function ProjectGrid({
     >
       {projects.map((project)=>(
         <ProjectCard
-          key={project.id}
-          project={project}
-        />
+  key={project.id}
+  project={project}
+  onEdit={onEdit}
+  onDelete={onDelete}
+/>
       ))}
     </div>
   )

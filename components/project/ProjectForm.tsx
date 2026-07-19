@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProjectImageUpload from './ProjectImageUpload'
 
 export type ProjectFormValues = {
@@ -33,7 +33,18 @@ export default function ProjectForm({
   const [liveUrl, setLiveUrl] = useState(
     initialValues?.live_url ?? ''
   )
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
+ const [imageUrl, setImageUrl] = useState(
+  initialValues?.image_url ?? null
+)
+
+
+useEffect(() => {
+  setTitle(initialValues?.title ?? '')
+  setDescription(initialValues?.description ?? '')
+  setGithubUrl(initialValues?.github_url ?? '')
+  setLiveUrl(initialValues?.live_url ?? '')
+  setImageUrl(initialValues?.image_url ?? null)
+}, [initialValues])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()

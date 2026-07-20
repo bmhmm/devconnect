@@ -4,6 +4,7 @@ import DeveloperHero from '@/components/developer/DeveloperHero'
 import ProfileCard from '@/components/developer/ProfileCard'
 import SkillsList from '@/components/developer/SkillsList'
 import DeveloperProjects from "@/components/developer/DeveloperProjects"
+import ConnectButton from "@/components/developer/ConnectButton"
 
 type Props = {
   params: Promise<{
@@ -17,6 +18,9 @@ export default async function DeveloperPage({
   const { username } = await params
 
   const supabase = await createClient()
+  const {
+  data: { user },
+} = await supabase.auth.getUser()
 
   const { data: profile, error } = await supabase
     .from('profiles')
@@ -37,6 +41,7 @@ export default async function DeveloperPage({
     )
   `)
   .eq('user_id', profile.id)
+  const isOwnProfile = user?.id === profile.id
 
 const skills =
   profileSkills?.map((item: any) => item.skills) ?? []
@@ -82,6 +87,15 @@ const { data } = supabase.storage
   availableForWork={profile.available_for_work}
   githubUrl={profile.github_url}
   portfolioUrl={profile.portfolio_url}
+  isOwnProfile={isOwnProfile}
+action={
+  !isOwnProfile && user ? (
+    <ConnectButton
+      requesterId={user.id}
+      receiverId={profile.id}
+    />
+  ) : null
+}
 />
         </aside>
 

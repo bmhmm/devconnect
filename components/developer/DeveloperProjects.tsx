@@ -15,8 +15,8 @@ export default function DeveloperProjects({
   projects,
 }: Props) {
   return (
-    <section className="rounded-3xl bg-white p-6 shadow-sm">
-
+    // <section className="rounded-3xl bg-white p-6 transition-all duration-300 ease-out shadow-sm">
+      <section className="rounded-3xl bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:scale-[1.01]">
       <h2 className="mb-6 text-2xl font-bold">
         Featured Projects
       </h2>

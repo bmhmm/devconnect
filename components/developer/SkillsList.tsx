@@ -12,7 +12,7 @@ export default function SkillsList({
 }: Props) {
   return (
     // <section className="rounded-3xl border border-slate-200 bg-white p-6 hover:translate-y-[-2px] shadow-sm">
-    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:translate-y-[-2px]">
+    <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 ease-out hover:scale-[1.01]">
       <h2 className="mb-5 text-xl font-semibold text-slate-900">
         Skills
       </h2>

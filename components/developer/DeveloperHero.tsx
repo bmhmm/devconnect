@@ -89,7 +89,7 @@
 
 
 'use client'
-
+import { ReactNode } from "react"
 import Image from 'next/image'
 import { Briefcase, MapPin } from 'lucide-react'
 import AvailabilityBadge from './AvailabilityBadge'
@@ -105,6 +105,8 @@ type Props = {
   availableForWork: boolean
   githubUrl: string | null
 portfolioUrl: string | null
+isOwnProfile: boolean
+  action?: ReactNode
 }
 
 export default function DeveloperHero({
@@ -115,6 +117,10 @@ export default function DeveloperHero({
   location,
   avatarUrl,
   availableForWork,
+  githubUrl,
+  portfolioUrl,
+  isOwnProfile,
+  action,
 }: Props) {
   console.log("Developer Avatar URL:", avatarUrl)
   return (
@@ -186,7 +192,9 @@ export default function DeveloperHero({
           <div className="w-full flex justify-center">
             <AvailabilityBadge available={availableForWork} />
           </div>
-   
+    <div className="mt-8 flex justify-center md:justify-start">
+  {action}
+</div>
 
         </div>
       </section>

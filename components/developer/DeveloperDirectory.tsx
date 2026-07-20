@@ -21,6 +21,11 @@ export default function DeveloperDirectory() {
 
   const [developers, setDevelopers] = useState<Developer[]>([])
   const [filteredDevelopers, setFilteredDevelopers] = useState<Developer[]>([])
+  const [availabilityFilter, setAvailabilityFilter] = useState<
+  "all" | "available"
+>("all")
+
+const [locationFilter, setLocationFilter] = useState("")
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -55,21 +60,84 @@ export default function DeveloperDirectory() {
   }
 
   function handleSearch(search: string) {
-    if (!search.trim()) {
-      setFilteredDevelopers(developers)
-      return
-    }
+
+  let result = developers
+
+
+  if (search.trim()) {
 
     const keyword = search.toLowerCase()
 
-    setFilteredDevelopers(
-      developers.filter((developer) =>
-        developer.full_name?.toLowerCase().includes(keyword) ||
-        developer.username.toLowerCase().includes(keyword) ||
-        developer.headline?.toLowerCase().includes(keyword)
-      )
+    result = result.filter((developer)=>
+      developer.full_name
+        ?.toLowerCase()
+        .includes(keyword)
+      ||
+      developer.username
+        .toLowerCase()
+        .includes(keyword)
+      ||
+      developer.headline
+        ?.toLowerCase()
+        .includes(keyword)
+    )
+
+  }
+
+
+  if (availabilityFilter === "available") {
+
+    result = result.filter(
+      (developer)=>
+        developer.available_for_work
+    )
+
+  }
+
+
+  if(locationFilter){
+
+    result = result.filter(
+      (developer)=>
+        developer.location
+        ?.toLowerCase()
+        .includes(locationFilter.toLowerCase())
+    )
+
+  }
+
+
+  setFilteredDevelopers(result)
+
+}
+function applyFilters(
+  availability: "all" | "available",
+  location: string
+) {
+
+  let result = developers
+
+
+  if (availability === "available") {
+    result = result.filter(
+      (developer) =>
+        developer.available_for_work
     )
   }
+
+
+  if (location.trim()) {
+    result = result.filter(
+      (developer) =>
+        developer.location
+          ?.toLowerCase()
+          .includes(location.toLowerCase())
+    )
+  }
+
+
+  setFilteredDevelopers(result)
+}
 
   return (
     <section className="space-y-8">
@@ -84,7 +152,19 @@ export default function DeveloperDirectory() {
         </p>
       </div>
 
-      <DeveloperSearch onSearch={handleSearch} />
+    <DeveloperSearch
+  onSearch={handleSearch}
+  availability={availabilityFilter}
+  setAvailability={(value:any)=>{
+    setAvailabilityFilter(value)
+    applyFilters(value, locationFilter)
+  }}
+  location={locationFilter}
+  setLocation={(value)=>{
+    setLocationFilter(value)
+    applyFilters(availabilityFilter,value)
+  }}
+/>
 
       {loading ? (
         <div className="rounded-3xl bg-white p-10 text-center">

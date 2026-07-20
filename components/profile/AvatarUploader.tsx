@@ -190,6 +190,7 @@ export default function AvatarUploader({
       setAvatarUrl(previewUrl)
 
       onUpload(filePath)
+     
 
     } catch (error) {
       console.error(error)

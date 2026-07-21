@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
-import ConversationCard from './ConversationCard'
-
+// import ConversationCard from './ConversationCard'
+import ConversationItem from './ConversationItem'
 type Props = {
   userId: string
 }
@@ -44,10 +44,10 @@ export default async function ConversationList({
             : connection.requester
 
         return (
-          <ConversationCard
-            key={connection.id}
-            profile={other}
-          />
+          <ConversationItem
+  key={connection.id}
+  profile={other}
+/>
         )
       })}
 

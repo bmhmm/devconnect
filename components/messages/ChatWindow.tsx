@@ -143,12 +143,19 @@ import MessageInput from './MessageInput'
 
 type Props = {
   currentUserId: string
+  // receiver: {
+  //   id: string
+  //   full_name: string
+  //   username: string
+  //   headline: string | null
+  // }
   receiver: {
-    id: string
-    full_name: string
-    username: string
-    headline: string | null
-  }
+  id: string
+  full_name: string
+  username: string
+  avatar_url: string | null
+  headline: string | null
+}
   messages: any[]
 }
 
@@ -160,7 +167,7 @@ export default function ChatWindow({
   return (
     <div className="overflow-hidden rounded-3xl border border-[#E8D3B5] bg-white shadow-xl">
       {/* Header */}
-      <div className="flex items-center gap-4 border-b border-[#F1E2CE] bg-[#FFF9F2] p-5">
+      {/* <div className="flex items-center gap-4 border-b border-[#F1E2CE] bg-[#FFF9F2] p-5">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#8B5E3C] text-lg font-bold text-white shadow-sm">
           {receiver.full_name?.charAt(0)}
         </div>
@@ -180,7 +187,53 @@ export default function ChatWindow({
             </p>
           )}
         </div>
+      </div> */}
+      <div className="border-b bg-white p-6">
+  <div className="flex items-center gap-4">
+
+    {receiver.avatar_url ? (
+      <img
+        src={receiver.avatar_url}
+        alt={receiver.full_name}
+        className="h-14 w-14 rounded-full object-cover"
+      />
+    ) : (
+      <div className="
+        flex
+        h-14
+        w-14
+        items-center
+        justify-center
+        rounded-full
+        bg-amber-200
+        text-lg
+        font-bold
+        text-slate-700
+      ">
+        {receiver.full_name.charAt(0)}
       </div>
+    )}
+
+    <div>
+
+      <h1 className="text-xl font-bold">
+        {receiver.full_name}
+      </h1>
+
+      <p className="text-sm text-slate-500">
+        @{receiver.username}
+      </p>
+
+      {receiver.headline && (
+        <p className="text-sm text-slate-600">
+          {receiver.headline}
+        </p>
+      )}
+
+    </div>
+
+  </div>
+</div>
 
       {/* Messages */}
       <div className="min-h-[500px] space-y-4 bg-[#FCF7F0] p-6">

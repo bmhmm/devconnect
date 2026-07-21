@@ -73,7 +73,13 @@ export default function MessagesLayout({
         </h2>
 
 
-        <div className="space-y-2">
+       <div
+    className="
+        h-full
+        space-y-2
+        overflow-y-auto
+    "
+>
 
           {/* {conversations.map((profile)=> (
 
@@ -153,12 +159,21 @@ export default function MessagesLayout({
 
 
       </section> */}
-      <section
+      {/* <section
   className="
     flex
     bg-slate-50
   "
+> */}
+<section
+  className="
+    flex
+    flex-1
+    overflow-hidden
+    bg-slate-50
+  "
 >
+
 
 {
 selectedUser ? (

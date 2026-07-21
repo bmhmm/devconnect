@@ -31,7 +31,7 @@ export default function ChatBubble({
 
       <div
         className={`
-          max-w-xs
+          max-w-[70%]
           rounded-2xl
           px-4
           py-3

@@ -47,13 +47,22 @@ type Props = {
 
   return (
 
+    // <div
+    //   className="
+    //     flex
+    //     h-full
+    //     flex-col
+    //   "
+    // >
     <div
-      className="
-        flex
-        h-full
-        flex-col
-      "
-    >
+  className="
+    flex
+    h-full
+    w-full
+    flex-1
+    flex-col
+  "
+>
 
       <ChatHeader
         profile={receiver}
@@ -62,39 +71,44 @@ type Props = {
 
 
       <div
-        className="
-          flex-1
-          space-y-3
-          overflow-y-auto
-          bg-slate-50
-          p-6
-        "
-      >
+  className="
+    flex-1
+    overflow-y-auto
+    bg-slate-50
+    p-6
+  "
+>
 
-        {messages.length === 0 ? (
+  {messages.length === 0 ? (
 
-          <p
-            className="
-              text-center
-              text-slate-400
-            "
-          >
-            No messages yet.
-          </p>
+    <p
+      className="
+        text-center
+        text-slate-400
+      "
+    >
+      No messages yet.
+    </p>
 
-        ):(
+  ) : (
 
-          messages.map((message)=>(
-            <ChatBubble
-              key={message.id}
-              message={message}
-              currentUserId={currentUserId}
-            />
-          ))
+    <div className="flex flex-col gap-3">
 
-        )}
+      {messages.map((message) => (
 
-      </div>
+        <ChatBubble
+          key={message.id}
+          message={message}
+          currentUserId={currentUserId}
+        />
+
+      ))}
+
+    </div>
+
+  )}
+
+</div>
       <MessageInput
   receiverId={receiver.id}
 />

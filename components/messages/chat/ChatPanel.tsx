@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 
 import ChatHeader from "./ChatHeader"
-import ChatBubble from "./ChatBubble"
+// import ChatBubble from "./ChatBubble"
+import ChatMessages from "./ChatMessages"
 
 import MessageInput from "../MessageInput"
 
@@ -28,18 +29,35 @@ type Props = {
 
   const [messages, setMessages] = useState<any[]>([])
 
-  useEffect(() => {
-
   async function loadConversation() {
 
-    const data = await getConversation(
-      currentUserId,
-      receiver.id
-    )
+  const data = await getConversation(
+    currentUserId,
+    receiver.id
+  )
 
-    setMessages(data)
+  setMessages(data)
 
-  }
+}
+
+//   useEffect(() => {
+
+//   async function loadConversation() {
+
+//     const data = await getConversation(
+//       currentUserId,
+//       receiver.id
+//     )
+
+//     setMessages(data)
+
+//   }
+
+//   loadConversation()
+
+// }, [currentUserId, receiver.id])
+
+useEffect(() => {
 
   loadConversation()
 
@@ -149,48 +167,27 @@ type Props = {
         "
       >
 
-        {messages.length === 0 ? (
-
-          <div
-            className="
-              flex
-              h-full
-              items-center
-              justify-center
-              text-slate-400
-            "
-          >
-            No messages yet.
-          </div>
-
-        ) : (
-
-          <div className="flex flex-col gap-3">
-
-            {messages.map((message) => (
-
-              <ChatBubble
-                key={message.id}
-                message={message}
-                currentUserId={currentUserId}
-              />
-
-            ))}
-
-          </div>
-
-        )}
+       
 
       </div>
+
+      <ChatMessages
+  messages={messages}
+  currentUserId={currentUserId}
+/>
 
     </div>
 
 
     <div className="shrink-0">
 
-      <MessageInput
+      {/* <MessageInput
         receiverId={receiver.id}
-      />
+      /> */}
+      <MessageInput
+  receiverId={receiver.id}
+  onMessageSent={loadConversation}
+/>
 
     </div>
 

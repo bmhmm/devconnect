@@ -5,14 +5,20 @@ import { sendMessage } from '@/app/account/messages/actions'
 import { useRouter } from 'next/navigation'
 
 
+// type Props = {
+//   receiverId: string
+// }
+
 type Props = {
   receiverId: string
+  onMessageSent?: () => void
 }
 
 
 export default function MessageInput({
   receiverId,
-}: Props) {
+  onMessageSent,
+}: Props){
 
 
   const [message, setMessage] = useState('')
@@ -31,15 +37,24 @@ export default function MessageInput({
       setLoading(true)
 
 
+      // await sendMessage(
+      //   receiverId,
+      //   message
+      // )
+
+
+      // setMessage('')
+
+      // router.refresh()
+
       await sendMessage(
-        receiverId,
-        message
-      )
+  receiverId,
+  message
+)
 
+setMessage('')
 
-      setMessage('')
-
-      router.refresh()
+onMessageSent?.()
 
 
     } finally {
@@ -106,7 +121,7 @@ export default function MessageInput({
 />
 
 
-      <button
+      {/* <button
         onClick={handleSend}
         disabled={loading}
         className="
@@ -124,7 +139,28 @@ export default function MessageInput({
           : 'Send'
         }
 
-      </button>
+      </button> */}
+      <button
+  onClick={handleSend}
+  disabled={loading}
+  className="
+    flex
+    h-12
+    w-12
+    items-center
+    justify-center
+    rounded-full
+    bg-[#8B5E3C]
+    text-white
+    transition
+    hover:bg-[#6F4A31]
+    disabled:opacity-50
+  "
+>
+
+  {loading ? "..." : "➤"}
+
+</button>
 
 
     </div>

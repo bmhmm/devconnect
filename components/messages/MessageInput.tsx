@@ -67,7 +67,8 @@ export default function MessageInput({
         onChange={(e)=>setMessage(e.target.value)}
         placeholder="Write a message..."
         className="
-        bg-black
+        !bg-black
+        text-white
           flex-1
           rounded-xl
           border

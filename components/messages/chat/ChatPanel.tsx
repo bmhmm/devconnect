@@ -45,76 +45,157 @@ type Props = {
 
 }, [currentUserId, receiver.id])
 
-  return (
+//   return (
 
-    // <div
-    //   className="
-    //     flex
-    //     h-full
-    //     flex-col
-    //   "
-    // >
-    <div
-  className="
-    flex
-    h-full
-    w-full
-    flex-1
-    flex-col
-  "
->
+   
+//     <div
+//   className="
+//     flex
+//     h-full
+//     w-full
+//     flex-1
+//     flex-col
+//   "
+// >
+
+//       <ChatHeader
+//         profile={receiver}
+//       />
+
+
+
+//       <div
+//   className="
+//     flex-1
+//     overflow-y-auto
+//     bg-slate-50
+//     p-6
+//   "
+// >
+
+//   {messages.length === 0 ? (
+
+//     <p
+//       className="
+//         text-center
+//         text-slate-400
+//       "
+//     >
+//       No messages yet.
+//     </p>
+
+//   ) : (
+
+//     <div className="flex flex-col gap-3">
+
+//       {messages.map((message) => (
+
+//         <ChatBubble
+//           key={message.id}
+//           message={message}
+//           currentUserId={currentUserId}
+//         />
+
+//       ))}
+
+//     </div>
+
+//   )}
+
+// </div>
+//       <MessageInput
+//   receiverId={receiver.id}
+// />
+
+
+//     </div>
+
+//   )
+
+   return (
+
+  <div
+    className="
+      flex
+      h-full
+      w-full
+      flex-col
+      overflow-hidden
+    "
+  >
+
+    <div className="shrink-0">
 
       <ChatHeader
         profile={receiver}
       />
 
+    </div>
 
 
-      <div
-  className="
-    flex-1
-    overflow-y-auto
-    bg-slate-50
-    p-6
-  "
->
-
-  {messages.length === 0 ? (
-
-    <p
+    <div
       className="
-        text-center
-        text-slate-400
+        flex-1
+        overflow-hidden
       "
     >
-      No messages yet.
-    </p>
 
-  ) : (
+      <div
+        className="
+          h-full
+          overflow-y-auto
+          bg-slate-50
+          p-6
+        "
+      >
 
-    <div className="flex flex-col gap-3">
+        {messages.length === 0 ? (
 
-      {messages.map((message) => (
+          <div
+            className="
+              flex
+              h-full
+              items-center
+              justify-center
+              text-slate-400
+            "
+          >
+            No messages yet.
+          </div>
 
-        <ChatBubble
-          key={message.id}
-          message={message}
-          currentUserId={currentUserId}
-        />
+        ) : (
 
-      ))}
+          <div className="flex flex-col gap-3">
+
+            {messages.map((message) => (
+
+              <ChatBubble
+                key={message.id}
+                message={message}
+                currentUserId={currentUserId}
+              />
+
+            ))}
+
+          </div>
+
+        )}
+
+      </div>
 
     </div>
 
-  )}
 
-</div>
+    <div className="shrink-0">
+
       <MessageInput
-  receiverId={receiver.id}
-/>
-
+        receiverId={receiver.id}
+      />
 
     </div>
 
-  )
+  </div>
+
+)
+
 }

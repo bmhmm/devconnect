@@ -54,15 +54,19 @@ export default function MessageInput({
 
   return (
 
-    <div className="
-      flex
-      gap-3
-      border-t
-      p-4
-    ">
+    <div
+  className="
+    flex
+    items-end
+    gap-3
+    border-t
+    bg-white
+    p-4
+  "
+>
 
 
-      <input
+      {/* <input
         value={message}
         onChange={(e)=>setMessage(e.target.value)}
         placeholder="Write a message..."
@@ -76,7 +80,30 @@ export default function MessageInput({
           py-3
           outline-none
         "
-      />
+      /> */}
+      <textarea
+  rows={1}
+  value={message}
+  onChange={(e)=>setMessage(e.target.value)}
+  placeholder="Write a message..."
+
+  className="
+    max-h-40
+    min-h-[48px]
+    flex-1
+    resize-none
+    rounded-2xl
+    border
+    border-[#D8BFA3]
+    bg-[#FFF9F2]
+    px-4
+    py-3
+    text-[#3B2A1F]
+    outline-none
+    focus:ring-2
+    focus:ring-[#8B5E3C]
+  "
+/>
 
 
       <button

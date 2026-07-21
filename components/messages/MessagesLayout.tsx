@@ -69,7 +69,7 @@ export default function MessagesLayout({
 
         <div className="space-y-2">
 
-          {conversations.map((profile)=> (
+          {/* {conversations.map((profile)=> (
 
             <button
               key={profile.id}
@@ -83,12 +83,22 @@ export default function MessagesLayout({
             >
 
               <ConversationItem
-                profile={profile}
-              />
+  profile={profile}
+  onSelect={setSelectedUser}
+/>
 
             </button>
 
-          ))}
+          ))} */}
+          {conversations.map((profile)=> (
+
+  <ConversationItem
+    key={profile.id}
+    profile={profile}
+    onSelect={setSelectedUser}
+  />
+
+))}
 
 
         </div>

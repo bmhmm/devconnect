@@ -47,6 +47,7 @@ export default async function ConversationList({
           <ConversationItem
   key={connection.id}
   profile={other}
+  onSelect={setSelectedUser}
 />
         )
       })}

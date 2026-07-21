@@ -166,8 +166,7 @@ selectedUser ? (
   <ChatPanel
     currentUserId={currentUserId}
     receiver={selectedUser}
-    messages={[]}
-  />
+/>
 
 ) : (
 

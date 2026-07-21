@@ -1,22 +1,49 @@
+'use client'
+
+import { useEffect, useState } from "react"
+
 import ChatHeader from "./ChatHeader"
 import ChatBubble from "./ChatBubble"
 
+import MessageInput from "../MessageInput"
+
+import { getConversation } from "@/lib/chat"
+
 
 type Props = {
-  currentUserId:string
-
-  receiver:any
-
-  messages:any[]
+  currentUserId: string
+  receiver: any
 }
 
 
-export default function ChatPanel({
+// export default function ChatPanel({
+//   currentUserId,
+//   receiver,
+// }: Props){
+   
+    export default function ChatPanel({
   currentUserId,
   receiver,
-  messages,
-}:Props){
+}: Props) {
 
+  const [messages, setMessages] = useState<any[]>([])
+
+  useEffect(() => {
+
+  async function loadConversation() {
+
+    const data = await getConversation(
+      currentUserId,
+      receiver.id
+    )
+
+    setMessages(data)
+
+  }
+
+  loadConversation()
+
+}, [currentUserId, receiver.id])
 
   return (
 
@@ -68,6 +95,9 @@ export default function ChatPanel({
         )}
 
       </div>
+      <MessageInput
+  receiverId={receiver.id}
+/>
 
 
     </div>

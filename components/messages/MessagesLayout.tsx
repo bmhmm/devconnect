@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import ConversationItem from './ConversationItem'
+import ChatPanel from './chat/ChatPanel'
 
 
 type Profile = {
@@ -13,13 +14,18 @@ type Profile = {
 }
 
 
+// type Props = {
+//   conversations: Profile[]
+// }
 type Props = {
   conversations: Profile[]
+  currentUserId: string
 }
 
 
 export default function MessagesLayout({
   conversations,
+  currentUserId,
 }: Props) {
 
 
@@ -110,7 +116,7 @@ export default function MessagesLayout({
 
       {/* Chat Area */}
 
-      <section
+      {/* <section
         className="
           flex
           items-center
@@ -146,7 +152,42 @@ export default function MessagesLayout({
         )}
 
 
-      </section>
+      </section> */}
+      <section
+  className="
+    flex
+    bg-slate-50
+  "
+>
+
+{
+selectedUser ? (
+
+  <ChatPanel
+    currentUserId={currentUserId}
+    receiver={selectedUser}
+    messages={[]}
+  />
+
+) : (
+
+  <div
+    className="
+      flex
+      w-full
+      items-center
+      justify-center
+      text-slate-400
+    "
+  >
+    Select a conversation
+  </div>
+
+)
+
+}
+
+</section>
 
 
     </div>

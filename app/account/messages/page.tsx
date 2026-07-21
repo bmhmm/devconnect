@@ -105,9 +105,10 @@ export default async function MessagesPage(){
       "
     >
 
-      <MessagesLayout
-        conversations={conversations}
-      />
+     <MessagesLayout
+  conversations={conversations}
+  currentUserId={user.id}
+/>
 
     </main>
 

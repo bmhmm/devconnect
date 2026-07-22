@@ -22,19 +22,30 @@ export default function ChatBubble({
 
   return (
 
+    // <div
+    //   className={`
+    //     flex
+    //     ${mine ? "justify-end" : "justify-start"}
+    //   `}
+    // >
     <div
-      className={`
-        flex
-        ${mine ? "justify-end" : "justify-start"}
-      `}
-    >
+  className={`
+    flex
+    ${
+      mine
+        ? "justify-end"
+        : "justify-start"
+    }
+    mb-1.5
+  `}
+>
 
       <div
         className={`
-          max-w-[70%]
+          max-w-[75%]
           rounded-2xl
           px-4
-          py-3
+          py-2.5
           shadow
 
           ${
@@ -59,7 +70,7 @@ export default function ChatBubble({
 
         <p
           className={`
-            mt-1
+            mt-0.5
             text-right
             text-xs
 

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { sendMessage } from '@/app/account/messages/actions'
 import { useRouter } from 'next/navigation'
+import { useEffect, useRef} from 'react'
 
 
 // type Props = {
@@ -24,8 +25,24 @@ export default function MessageInput({
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  useEffect(() => {
+  if (!textareaRef.current) return
 
+  textareaRef.current.style.height = 'auto'
+  textareaRef.current.style.height =
+    textareaRef.current.scrollHeight + 'px'
+}, [message])
+
+function handleKeyDown(
+  e: React.KeyboardEvent<HTMLTextAreaElement>
+) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault()
+    handleSend()
+  }
+}
 
   async function handleSend() {
 
@@ -53,6 +70,7 @@ export default function MessageInput({
 )
 
 setMessage('')
+textareaRef.current?.focus()
 
 onMessageSent?.()
 
@@ -96,7 +114,7 @@ onMessageSent?.()
           outline-none
         "
       /> */}
-      <textarea
+      {/* <textarea
   rows={1}
   value={message}
   onChange={(e)=>setMessage(e.target.value)}
@@ -118,8 +136,30 @@ onMessageSent?.()
     focus:ring-2
     focus:ring-[#8B5E3C]
   "
-/>
+/> */}
 
+ <textarea
+  ref={textareaRef}
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+  onKeyDown={handleKeyDown}
+  placeholder="Write a message..."
+  rows={1}
+  className="
+    flex-1
+    resize-none
+    overflow-y-auto
+    rounded-2xl
+    border
+    border-[#D6B99B]
+    bg-[#FFF9F2]
+    px-4
+    py-3
+    outline-none
+    focus:border-[#8B5E3C]
+    max-h-40
+  "
+/>
 
       {/* <button
         onClick={handleSend}

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
+import { createClient } from '@/lib/supabase/client'
 
 import ChatHeader from "./ChatHeader"
 // import ChatBubble from "./ChatBubble"
@@ -28,6 +29,7 @@ type Props = {
 }: Props) {
 
   const [messages, setMessages] = useState<any[]>([])
+  const supabase = createClient()
 
   async function loadConversation() {
 
@@ -60,6 +62,31 @@ type Props = {
 useEffect(() => {
 
   loadConversation()
+
+}, [currentUserId, receiver.id])
+
+useEffect(() => {
+
+  const channel = supabase
+    .channel(`chat-${currentUserId}-${receiver.id}`)
+
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'messages',
+      },
+      async () => {
+        await loadConversation()
+      }
+    )
+
+    .subscribe()
+
+  return () => {
+    supabase.removeChannel(channel)
+  }
 
 }, [currentUserId, receiver.id])
 

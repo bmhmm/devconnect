@@ -53,15 +53,24 @@ export default function MessagesLayout({
 
       {/* Sidebar */}
 
-      <aside
+      {/* <aside
         className="
           border-r
           bg-[#FFF9F2]
           p-4
         "
-      >
+      > */}
+      <aside
+  className="
+    flex
+    h-full
+    flex-col
+    border-r
+    bg-[#FFF9F2]
+  "
+>
 
-        <h2
+        {/* <h2
           className="
             mb-5
             text-xl
@@ -70,15 +79,43 @@ export default function MessagesLayout({
           "
         >
           Messages
-        </h2>
+        </h2> */}
+
+        <div
+  className="
+    shrink-0
+    border-b
+    p-4
+  "
+>
+  <h2
+    className="
+      text-xl
+      font-bold
+      text-[#3B2A1F]
+    "
+  >
+    Messages
+  </h2>
+</div>
 
 
-       <div
+       {/* <div
     className="
         h-full
         space-y-2
         overflow-y-auto
     "
+> */}
+
+<div
+  className="
+    flex-1
+    overflow-y-auto
+    p-4
+    space-y-2
+    min-h-0
+  "
 >
 
           {/* {conversations.map((profile)=> (
@@ -165,10 +202,19 @@ export default function MessagesLayout({
     bg-slate-50
   "
 > */}
-<section
+{/* <section
   className="
     flex
     flex-1
+    overflow-hidden
+    bg-slate-50
+  "
+> */}
+<section
+  className="
+    flex
+    h-full
+    min-h-0
     overflow-hidden
     bg-slate-50
   "

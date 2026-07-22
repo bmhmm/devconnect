@@ -1,11 +1,22 @@
+// type Props = {
+//   message: {
+//     content: string
+//     created_at: string
+//     sender_id: string
+//   }
+
+//   currentUserId:string
+// }
+
 type Props = {
   message: {
     content: string
     created_at: string
     sender_id: string
+    read_at: string | null
   }
 
-  currentUserId:string
+  currentUserId: string
 }
 
 
@@ -68,7 +79,7 @@ export default function ChatBubble({
         </p>
 
 
-        <p
+        {/* <p
           className={`
             mt-0.5
             text-right
@@ -89,7 +100,38 @@ export default function ChatBubble({
             minute:"2-digit"
           })}
 
-        </p>
+        </p> */}
+      <div
+  className={`
+    mt-0.5
+    flex
+    items-center
+    justify-end
+    gap-1
+    text-xs
+
+    ${
+      mine
+        ? "text-blue-100"
+        : "text-[#8B5E3C]"
+    }
+  `}
+>
+
+  <span>
+    {new Date(message.created_at).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}
+  </span>
+
+  {mine && (
+    <span>
+      {message.read_at ? "✓✓" : "✓"}
+    </span>
+  )}
+
+</div>
 
 
       </div>

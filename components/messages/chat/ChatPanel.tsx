@@ -10,6 +10,7 @@ import ChatMessages from "./ChatMessages"
 import MessageInput from "../MessageInput"
 
 import { getConversation } from "@/lib/chat"
+import { markConversationAsRead } from '@/app/account/messages/read-actions'
 
 
 type Props = {
@@ -31,7 +32,20 @@ type Props = {
   const [messages, setMessages] = useState<any[]>([])
   const supabase = createClient()
 
-  async function loadConversation() {
+//   async function loadConversation() {
+
+//   const data = await getConversation(
+//     currentUserId,
+//     receiver.id
+//   )
+
+//   setMessages(data)
+
+// }
+
+   async function loadConversation() {
+
+  await markConversationAsRead(receiver.id)
 
   const data = await getConversation(
     currentUserId,

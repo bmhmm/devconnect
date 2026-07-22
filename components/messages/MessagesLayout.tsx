@@ -38,7 +38,7 @@ export default function MessagesLayout({
     <div
       className="
         grid
-        h-[75vh]
+      h-[82vh]
         grid-cols-1
         overflow-hidden
         rounded-3xl

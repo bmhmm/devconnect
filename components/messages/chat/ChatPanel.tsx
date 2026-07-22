@@ -159,15 +159,26 @@ useEffect(() => {
 
    return (
 
+  // <div
+  //   className="
+  //     flex
+  //     h-full
+  //     w-full
+  //     flex-col
+  //     overflow-hidden
+  //   "
+  // >
+
   <div
-    className="
-      flex
-      h-full
-      w-full
-      flex-col
-      overflow-hidden
-    "
-  >
+  className="
+    flex
+    h-full
+    w-full
+    min-h-0
+    flex-col
+    overflow-hidden
+  "
+>
 
     <div className="shrink-0">
 

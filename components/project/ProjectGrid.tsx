@@ -12,11 +12,33 @@ type Project = {
   created_at: string
 }
 
+// type Project = {
+//   id: string
+//   title: string
+//   description: string | null
+//   image_url: string | null
+//   github_url: string | null
+//   live_url: string | null
+//   created_at: string
+
+//   profiles: {
+//     full_name: string | null
+//     username: string | null
+//     avatar_url: string | null
+//   } | null
+// }
+
+// type Props = {
+//   projects: Project[]
+//   onEdit: (project: Project) => void
+//   onDelete: (project: Project) => void
+// }
 type Props = {
   projects: Project[]
-  onEdit: (project: Project) => void
-  onDelete: (project: Project) => void
+  onEdit?: (project: Project) => void
+  onDelete?: (project: Project) => void
 }
+
 
 export default function ProjectGrid({
   projects,

@@ -43,9 +43,21 @@ type Props = {
 
 // }
 
-   async function loadConversation() {
+//    async function loadConversation() {
 
-  await markConversationAsRead(receiver.id)
+//   // await markConversationAsRead(receiver.id)
+//   await markConversationAsRead(currentUserId, receiver.id)
+
+//   const data = await getConversation(
+//     currentUserId,
+//     receiver.id
+//   )
+
+//   setMessages(data)
+
+// }
+
+  async function loadConversation() {
 
   const data = await getConversation(
     currentUserId,
@@ -73,9 +85,27 @@ type Props = {
 
 // }, [currentUserId, receiver.id])
 
+// useEffect(() => {
+
+//   loadConversation()
+
+// }, [currentUserId, receiver.id])
+
+
 useEffect(() => {
 
-  loadConversation()
+  async function openChat(){
+
+    await markConversationAsRead(
+      currentUserId,
+      receiver.id
+    )
+
+    await loadConversation()
+
+  }
+
+  openChat()
 
 }, [currentUserId, receiver.id])
 
@@ -84,17 +114,29 @@ useEffect(() => {
   const channel = supabase
     .channel(`chat-${currentUserId}-${receiver.id}`)
 
-    .on(
-      'postgres_changes',
-      {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'messages',
-      },
-      async () => {
-        await loadConversation()
-      }
-    )
+    // .on(
+    //   'postgres_changes',
+    //   {
+    //     event: 'INSERT',
+    //     schema: 'public',
+    //     table: 'messages',
+    //   },
+    //   async () => {
+    //     await loadConversation()
+    //   }
+    // )
+
+     .on(
+  'postgres_changes',
+  {
+    event: '*',
+    schema: 'public',
+    table: 'messages',
+  },
+  async () => {
+    await loadConversation()
+  }
+)
 
     .subscribe()
 

@@ -1,10 +1,97 @@
+// "use client";
+
+// import { useState } from "react";
+// import Link from "next/link";
+
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
+import {
+  User,
+  MessageCircle,
+  Users,
+  LogOut
+} from "lucide-react";
+
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+  // const [user, setUser] = useState<any>(null);
+   const [user, setUser] = useState<any>(undefined);
+
+  const router = useRouter();
+
+  useEffect(() => {
+
+  const supabase = createClient();
+
+
+  async function checkUser(){
+
+    const {
+      data:{
+        user
+      }
+    } = await supabase.auth.getUser();
+
+
+    setUser(user ?? null);
+
+  }
+
+
+  checkUser();
+
+
+}, []);
+
+//    useEffect(() => {
+
+//   const supabase = createClient();
+
+
+//   async function checkUser(){
+
+//     const {
+//       data:{
+//         user
+//       }
+//     } = await supabase.auth.getUser();
+
+
+//     setUser(user);
+
+//   }
+
+
+//   checkUser();
+
+
+// }, []);
+
+ async function handleLogout(){
+
+  const supabase = createClient();
+
+
+  await supabase.auth.signOut();
+
+
+  setUser(null);
+
+
+  router.push("/");
+
+
+  router.refresh();
+
+}
 
   return (
     <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-6">
@@ -122,7 +209,7 @@ export default function Navbar() {
           </div>
 
           {/* Right Action Buttons */}
-          <div className="flex flex-col gap-4 border-t border-slate-900/10 pt-4 md:flex-row md:items-center md:gap-6 md:border-t-0 md:pt-0">
+          {/* <div className="flex flex-col gap-4 border-t border-slate-900/10 pt-4 md:flex-row md:items-center md:gap-6 md:border-t-0 md:pt-0">
             <Link
               href="/login"
               onClick={() => setIsOpen(false)}
@@ -153,7 +240,134 @@ export default function Navbar() {
             >
               Get Started
             </Link>
-          </div>
+          </div> */}
+
+         {/* Right Action Buttons */}
+<div className="flex flex-col gap-4 border-t border-slate-900/10 pt-4 md:flex-row md:items-center md:gap-6 md:border-t-0 md:pt-0">
+
+
+{
+user === undefined ? (
+
+  null
+
+) : user ? (
+
+  <div
+    className="
+      flex
+      items-center
+      gap-5
+    "
+  >
+
+    <Link href="/account">
+      <User
+        className="
+          h-5
+          w-5
+          text-slate-800
+          hover:text-blue-600
+        "
+      />
+    </Link>
+
+
+    <Link href="/account/messages">
+
+      <MessageCircle
+        className="
+          h-5
+          w-5
+          text-slate-800
+          hover:text-blue-600
+        "
+      />
+
+    </Link>
+
+
+    <Link href="/account/connections">
+
+      <Users
+        className="
+          h-5
+          w-5
+          text-slate-800
+          hover:text-blue-600
+        "
+      />
+
+    </Link>
+
+
+    <button
+      onClick={handleLogout}
+    >
+
+      <LogOut
+        className="
+          h-5
+          w-5
+          text-slate-800
+          hover:text-red-500
+        "
+      />
+
+    </button>
+
+
+  </div>
+
+
+) : (
+
+<>
+
+<Link
+ href="/login"
+ onClick={() => setIsOpen(false)}
+ className="text-sm font-semibold text-slate-800 transition hover:text-blue-600"
+>
+ Login
+</Link>
+
+
+
+<Link
+ href="/login"
+ onClick={() => setIsOpen(false)}
+ className="
+ inline-block
+ text-center
+ rounded-xl
+ bg-blue-600
+ px-5
+ py-2.5
+ font-medium
+ text-white
+ transition
+ duration-300
+ hover:scale-105
+ hover:bg-blue-500
+ hover:shadow-lg
+ hover:shadow-blue-500/30
+ "
+>
+
+ Get Started
+
+</Link>
+
+
+</>
+
+)
+}
+
+
+</div>
+
         </div>
       </nav>
     </header>

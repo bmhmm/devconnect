@@ -89,7 +89,7 @@ export async function login(
 
   revalidatePath('/', 'layout')
 
-  redirect('/account')
+  redirect("/")
 }
 
 
@@ -125,5 +125,5 @@ export async function signup(
 
   revalidatePath('/', 'layout')
 
-  redirect('/account')
+  redirect("/")
 }

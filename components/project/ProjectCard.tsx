@@ -12,11 +12,33 @@ type Project = {
   live_url: string | null
   created_at: string
 }
+  
+// type Project = {
+//   id: string
+//   title: string
+//   description: string | null
+//   image_url: string | null
+//   github_url: string | null
+//   live_url: string | null
+//   created_at: string
 
+//   profiles: {
+//     full_name: string | null
+//     username: string | null
+//     avatar_url: string | null
+//   } | null
+// }
+
+
+// type Props = {
+//   project: Project
+//   onEdit: (project: Project) => void
+//   onDelete: (project: Project) => void
+// }
 type Props = {
   project: Project
-  onEdit: (project: Project) => void
-  onDelete: (project: Project) => void
+  onEdit?: (project: Project) => void
+  onDelete?: (project: Project) => void
 }
 
 export default function ProjectCard({
@@ -75,6 +97,7 @@ export default function ProjectCard({
         ">
           {project.title}
         </h3>
+        
 
 
         <p className="
@@ -135,7 +158,7 @@ export default function ProjectCard({
           )}
 
         </div>
-       <div className="mt-4 flex gap-3">
+       {/* <div className="mt-4 flex gap-3">
 
   <button
     type="button"
@@ -173,7 +196,58 @@ export default function ProjectCard({
     Delete
   </button>
 
-</div>
+</div> */}
+{(onEdit || onDelete) && (
+
+  <div className="mt-4 flex gap-3">
+
+    {onEdit && (
+
+      <button
+        type="button"
+        onClick={() => onEdit(project)}
+        className="
+          flex-1
+          rounded-xl
+          border
+          border-slate-200
+          py-2
+          text-sm
+          font-medium
+          transition
+          hover:bg-slate-100
+        "
+      >
+        Edit
+      </button>
+
+    )}
+
+    {onDelete && (
+
+      <button
+        type="button"
+        onClick={() => onDelete(project)}
+        className="
+          flex-1
+          rounded-xl
+          bg-red-500
+          py-2
+          text-sm
+          font-medium
+          text-white
+          transition
+          hover:bg-red-600
+        "
+      >
+        Delete
+      </button>
+
+    )}
+
+  </div>
+
+)}
       </div>
 
     </div>

@@ -1,12 +1,4 @@
-// type Props = {
-//   message: {
-//     content: string
-//     created_at: string
-//     sender_id: string
-//   }
 
-//   currentUserId:string
-// }
 
 type Props = {
   message: {
